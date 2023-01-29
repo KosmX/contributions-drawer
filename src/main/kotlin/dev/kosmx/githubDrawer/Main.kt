@@ -20,10 +20,12 @@ fun main() {
 
     val file = timeMap.find { it.first <= now } ?: error("No image for today")
     val row: Int = now.dayOfWeek.value % 7 // dayOfWeek -> 1(monday) - 7(saturday)
-    val column: Int = ((now - DatePeriod(days = row)) - file.first).days / 7
-    println("row=$row, column=$column")
+    val col: Int = ((now - DatePeriod(days = row)) - file.first).days / 7
+    println("row=$row, column=$col")
 
-    for (i in 0 .. 4) {
+    val px = Matrix(file.second)[col, row]
+
+    for (i in 0 .. px) {
         commit(i)
     }
     push()
@@ -41,5 +43,5 @@ fun commit(idx: Int) {
 }
 
 fun push() {
-
+    ProcessBuilder("git push").directory(File("repo")).start().waitFor()
 }

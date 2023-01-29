@@ -1,11 +1,23 @@
+@file:JvmName("Test")
 package dev.kosmx.githubDrawer
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.cli.ArgParser
+import kotlinx.cli.ArgType
+import kotlinx.cli.required
 
-fun main() {
-    println(Json.encodeToJsonElement(Clock.System.now().toLocalDateTime(TimeZone.UTC).date to 12))
+fun main(args: Array<String>) {
+    val parser = ArgParser("GitHub drawer test mode")
+    val fileName by parser.option(ArgType.String, shortName = "f", fullName = "file", description = "input file").required()
+    parser.parse(args)
+
+    val chars = arrayOf(' ', '░', '▒', '▓', '█')
+
+    val matrix = Matrix(fileName)
+    for (y in 0 until matrix.size.second) {
+        for (x in 0 until matrix.size.first) {
+            val char = chars[matrix[x, y]]
+            print("$char$char")
+        }
+        println()
+    }
 }
