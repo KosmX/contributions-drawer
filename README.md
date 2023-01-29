@@ -1,1 +1,1 @@
-# Draw into contritions graph
+# Draw into contributions graph
