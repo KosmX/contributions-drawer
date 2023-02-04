@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
 
     val now = Clock.System.now().toLocalDateTime(TimeZone.UTC).date
 
-    val file = timeMap.find { it.first <= now } ?: error("No image for today")
+    val file = timeMap.findLast { it.first <= now } ?: error("No image for today")
     val row: Int = now.dayOfWeek.value % 7 // dayOfWeek -> 1(monday) - 7(saturday)
     val col: Int = ((now - DatePeriod(days = row)) - file.first).days / 7
 
