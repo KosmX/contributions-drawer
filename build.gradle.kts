@@ -1,9 +1,9 @@
 plugins {
     java
-    val kotlinVersion = "1.8.0"
+    val kotlinVersion = "1.8.10"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.johnrengelman.shadow") version "8.1.0"
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -21,6 +21,7 @@ dependencies {
 
 tasks {
     withType<JavaCompile>().configureEach {
+        options.encoding = "UTF-8"
         options.release.set(java.targetCompatibility.majorVersion.toInt())
     }
 

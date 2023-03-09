@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
 
     val file = timeMap.find { it.first <= now } ?: error("No image for today")
     val row: Int = now.dayOfWeek.value % 7 // dayOfWeek -> 1(monday) - 7(saturday)
-    val col: Int = ((now - DatePeriod(days = row)) - file.first).days / 7
+    val col: Int = ((now.toEpochDays() - row - file.first.toEpochDays())) / 7
 
     val px = Matrix(file.second)[col, row]
 
